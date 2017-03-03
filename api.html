@@ -46,7 +46,7 @@ Released   : 20131203
 			<h2>Using the API</h2>
 		</div>
 		<div class="content">
-			<p>This section covers how to actually call the Computer Vision API using Javascript to perform various computer vision tasks.
+			<p>This section covers how to use the Computer Vision API by sending an HTTP request using Javascript. 
 			</p>
 		</div>
 	</div>
@@ -108,7 +108,6 @@ Released   : 20131203
 			by appending &subscription-key=&lt;API key&gt;, or it can be sent as a request header (ocp-apim-subscription-key: &lt;API key&gt;). For simplicity we will choose 
 			to pass the key as a query parameter.
 		</p>
-		
 		<p class="content"> 
 			In summary, the full request URL will look like this:
 		</p>
@@ -116,25 +115,134 @@ Released   : 20131203
 			<code>https://westus.api.cognitive.microsoft.com/vision/v1.0/analyze[?visualFeatures]&subscription-key=&lt;API key&gt;</code>
 		</p>
 		<p class="content">
-			We can directly send the POST using something like the 
-			<a href="https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo?hl=en-US">Advanced REST client</a>, 
-			but let's see how we would send the request using Javascript.
+			We can directly send the POST request by manually constructing the request URL and using something like the 
+			<a href="https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo?hl=en-US">Advanced REST client</a>. 
+			However it will be much more convenient to use something like Javascript with HTML to take care of sending requests to and receiving responses 
+			from the API. Javascript and HTML example is shown at the end of this section.
 		</p>
 		
-		
+		<div class="title">
+			<h3>Response</h3>
+		</div>
+		<p class="content">
+			Once the POST request is sent to the API, after a short delay, we get a response back in JSON. This can be parsed and interpreted to fit the needs 
+			of the application. 
+		</p>
+		<p class="content">
+			Here's an example of a response from the API, after sending it this image:
+		</p>
+		<p><img src="images/cats-politics.jpg" class="image"></p>
+		<p class="content">
+			<h5>Response: </h5>
+			<pre>
+{
+   "categories":[
+      {
+         "name":"animal_cat",
+         "score":0.99609375
+      }
+   ],
+   "adult":{
+      "isAdultContent":false,
+      "isRacyContent":false,
+      "adultScore":0.024704862385988235,
+      "racyScore":0.023070348426699638
+   },
+   "tags":[
+      {
+         "name":"suit",
+         "confidence":0.98840630054473877
+      },
+      {
+         "name":"person",
+         "confidence":0.91569232940673828
+      },
+      {
+         "name":"wearing",
+         "confidence":0.88171303272247314
+      },
+      {
+         "name":"posing",
+         "confidence":0.3800310492515564
+      },
+      {
+         "name":"dressed",
+         "confidence":0.2860342264175415
+      }
+   ],
+   "description":{
+      "tags":[
+         "suit",
+         "necktie",
+         "person",
+         "wearing",
+         "man",
+         "cat",
+         "red",
+         "looking",
+         "sitting",
+         "jacket",
+         "camera",
+         "brown",
+         "posing",
+         "standing",
+         "dressed",
+         "white",
+         "yellow",
+         "black",
+         "hat"
+      ],
+      "captions":[
+         {
+            "text":"a cat is wearing a suit and tie",
+            "confidence":0.81888813857032983
+         }
+      ]
+   },
+   "requestId":"31556510-df39-416a-a06a-4eca05975e08",
+   "metadata":{
+      "width":600,
+      "height":400,
+      "format":"Jpeg"
+   },
+   "faces":[
+
+   ],
+   "color":{
+      "dominantColorForeground":"White",
+      "dominantColorBackground":"White",
+      "dominantColors":[
+         "White",
+         "Black"
+      ],
+      "accentColor":"A6253C",
+      "isBWImg":false
+   },
+   "imageType":{
+      "clipArtType":0,
+      "lineDrawingType":0
+   }
+}
+			</pre>
+		</p>
 		
 		<div class="title">
 			<h3>Example code</h3>
 		</div>
 		<p class="content">
-			Here's an example of how to call the API using form submission in HTML. 
-			(insert JSFiddle)
+			Here's a code example that calls the API using form submission in HTML and Javascript, and displays the response. 
 		</p>
-		<iframe width="100%" height="300" src="//jsfiddle.net/0w2jcqfn/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
-		
-		<div class="title">
-			<h3>Response</h3>
-		</div>
+		<iframe width="100%" height="600" src="//jsfiddle.net/hsxgxnmL/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+		<p class="content">
+			Let's go through the code line by line. 
+		</p>
+		<p class="content">
+			The HTML file simply receives the image URL and visualFeatures parameters to pass to the Javascript code. The returned result 
+			is simply displayed as text here, but of course it can be made to extract more specific result from the response object returned - for example, 
+			<code>
+				document.getElementById("description").textContent = response.text;
+			</code>
+		</p>
 		
 		<div class ="title" style="padding-top:3em">
 			<a class="next-prev" href="setup.html"><span class="icon icon-arrow-left" style="display:inline;"></span></a>

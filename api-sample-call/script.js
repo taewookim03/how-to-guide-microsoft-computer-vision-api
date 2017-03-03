@@ -14,8 +14,8 @@ document.addEventListener("DOMContentLoaded", function(){
 		
 		req.addEventListener("load", function(){
 			if (req.status >= 200 && req.status < 400) {
-				//var response = JSON.parse(req.responseText);
-				document.getElementById("response").textContent = req.responseText;
+				var response = JSON.parse(req.responseText);
+				document.getElementById("response").innerHTML = JSON.stringify(response, null, 2);
 			} 
 			else {
 				console.log("Error in network request" + req.statusText);
