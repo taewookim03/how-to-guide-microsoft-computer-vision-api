@@ -43,10 +43,10 @@ Released   : 20131203
 <div id="wrapper1">
 	<div id="welcome" class="container">
 		<div class="title">
-			<h2>Setup</h2>
+			<h2>Example</h2>
 		</div>
 		<div class="content">
-			<p>This section covers how to set up to be able to use the Computer Vision APIs from Microsoft Cognitive Services.
+			<p>This section shows a quick example application of the Computer Vision API.
 			</p>
 		</div>
 	</div>
@@ -54,21 +54,34 @@ Released   : 20131203
 <div id="wrapper3">
 	<div id="portfolio" class="container">
 		<div class="title">
-			<h2>Signing up to Microsoft</h2>
+			<h2>Cat Detector</h2>
 		</div>
-		<p class="content"> Microsoft offers various, readily available and powerful AI services, called 
-			<a href="https://www.microsoft.com/cognitive-services/en-us/"> Microsoft Cognitive Services </a>. 
-			They provide various artificial intelligence APIs, with applications in areas such as speech, vision, language, knowledge and search. 
-			The web-based APIs make it possible for developers to easily utilize Microsoft's services via the web using HTTP requests to develop applications across various platforms. 
-			The APIs support many programming languages such as Python, C#, Java, etc. In this guide we will focus on using Javascript. <br>
+		<p class="content"> 
+			As a simple example, I built an application that checks if the image provided (as URL) is of a cat. 
+		</p>
+		<iframe width="100%" height="600" src="//jsfiddle.net/crve4a8x/1/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+		
+		<p class="content">
+			Input:
+		</p>
+		<img src="images/orangecat.jpg" class="image">
+		<p class="content">
+			Output:
+			<code>Yes, it's a cat</code>
 		</p>
 		
-		<div class="title">
-			<h3>Pricing</h3>
-		</div>
 		<p class="content">
-			<a href="https://www.microsoft.com/cognitive-services/en-us/computer-vision-api" rel="nofollow">Computer Vision API</a>, 
-			
+			Input:
+		</p>
+		<img src="images/dog.jpg" class="image">
+		<p class="content">
+			Output:
+			<code>No, it's not a cat</code>
+		</p>
+		
+		<p class="content">
+			That is all for this how-to guide on the Microsoft Computer Vision API. There are so many possible applications of this powerful tool. 
+			Hopefully this guide provided a basic introduction on how to use the API. 
 		</p>
 		<div class ="title" style="padding-top:3em">
 			<a class="next-prev" href="api.html"><span class="icon icon-arrow-left" style="display:inline;"></span></a>

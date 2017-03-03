@@ -125,13 +125,15 @@ Released   : 20131203
 			<h3>Response</h3>
 		</div>
 		<p class="content">
-			Once the POST request is sent to the API, after a short delay, we get a response back in JSON. This can be parsed and interpreted to fit the needs 
-			of the application. 
+			Once the POST request is sent to the API, after a short delay, we get a response back in JSON. 
 		</p>
 		<p class="content">
-			Here's an example of a response from the API, after sending it this image:
+			Here's an example of a response from the API, after sending it this image, with all visualFeatures parameters:
 		</p>
-		<p><img src="images/cats-politics.jpg" class="image"></p>
+		<p class="content">
+			<h5>Image: </h5>
+			<img src="images/cats-politics.jpg" class="image">
+		</p>
 		<p class="content">
 			<h5>Response: </h5>
 			<pre>
@@ -225,6 +227,10 @@ Released   : 20131203
 }
 			</pre>
 		</p>
+		<p class="content">
+			The response is straightforward to understand and rich in information. Since the result is passed in JSON, it be parsed and interpreted 
+			to fit the needs of a specific application. 
+		</p>
 		
 		<div class="title">
 			<h3>Example code</h3>
@@ -232,16 +238,18 @@ Released   : 20131203
 		<p class="content">
 			Here's a code example that calls the API using form submission in HTML and Javascript, and displays the response. 
 		</p>
-		<iframe width="100%" height="600" src="//jsfiddle.net/hsxgxnmL/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+		<iframe width="100%" height="600" src="//jsfiddle.net/hsxgxnmL/1/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 		<p class="content">
-			Let's go through the code line by line. 
+			The code is fairly straightforward. We add a listener to the submit button, which extracts the image URL and visualFeatures parameter(s) from 
+			the HTML forms. We then build an XMLHttpRequest, build the URL with the endpoint, visualFeatures parameter(s) and the api key. 
+			Then we send the POST request along with a payload object, which contains the image URL.
 		</p>
 		<p class="content">
-			The HTML file simply receives the image URL and visualFeatures parameters to pass to the Javascript code. The returned result 
-			is simply displayed as text here, but of course it can be made to extract more specific result from the response object returned - for example, 
-			<code>
-				document.getElementById("description").textContent = response.text;
-			</code>
+			The accompanying HTML file simply receives the image URL and visualFeatures parameters to pass to the request object. The returned result 
+			is simply displayed as JSON, but of course it can be used to extract more specific result from the response object returned - for example, 
+			<div>
+				<code>document.getElementById("description").textContent = response.text;</code>
+			</div>
 		</p>
 		
 		<div class ="title" style="padding-top:3em">
