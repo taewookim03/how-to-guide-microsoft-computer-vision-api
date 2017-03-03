@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by TEMPLATED
+http://templated.co
+Released for free under the Creative Commons Attribution License
+
+Name       : Veridical 
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20131203
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" />
+<link href="default.css" rel="stylesheet" type="text/css" media="all" />
+<link href="fonts.css" rel="stylesheet" type="text/css" media="all" />
+
+<!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
+
+</head>
+<body>
+<div id="header-wrapper">
+	<div id="header" class="container">
+		<div id="logo">
+			<h1><a href="home.html">How-to Guide<br>Microsoft Vision API</a></h1>
+			<span>By Taewoo Kim</a></span> 
+		</div>
+		<div id="menu">
+			<ul>
+				<li><a href="home.html">Introduction</a></li>
+				<li><a href="setup.html">Setup</a></li>
+				<li class="current_page_item"><a href="api.html">Using the API</a></li>
+				<li><a href="example.html">Example</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div id="wrapper1">
+	<div id="welcome" class="container">
+		<div class="title">
+			<h2>Using the API</h2>
+		</div>
+		<div class="content">
+			<p>This section covers how to actually call the Computer Vision API using Javascript to perform various computer vision tasks.
+			</p>
+		</div>
+	</div>
+</div>
+<div id="wrapper3">
+	<div id="portfolio" class="container">
+	
+		<div class="title">
+			<h2>Request</h2>
+		</div>
+		<p class="content"> 
+			To use the Microsoft Computer Vision API to analyze an image, we must send a request to the API, containing the API key, the image to be analyzed 
+			and other parameters that define what exactly we want it to do. The image can be sent either as a URL to the image, 
+			or may be uploaded directly as a raw image binary. Sending an image as a URL is simple so we will be using that, but sending an image as binary data 
+			may take a bit more effort. You can use Mozilla Javascript API function,
+			<a href="https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL">FileReader.readAsDataURL()</a>
+			to accomplish this.
+		</p>
+		<p class="content">
+			To send an image by URL, simply pass a Javascript object containing { url : &lt;image url&gt; }.
+		</p>
+		<p class="content"> 
+			The Computer Vision API request is sent as an HTTP POST. The general format is as follows: 
+			<div>
+				<code>https://westus.api.cognitive.microsoft.com/vision/v1.0/analyze[?visualFeatures][&details][&language]</code>
+			</div>
+		</p>
+		<p class="content"> 
+			The first part of the URL (https://westus.api.cognitive.microsoft.com/vision/v1.0/analyze) is the API domain/endpoint. The [?visualFeatures], 
+			[&details], and [&language] are the optional parameters. Among these the visualFeatures parameter is the most important, and include many types.
+		</p>
+			<h5>visualFeatures</h5>
+			<ul class="style1">
+				<li>Categories - categorizes image according to the predefined 
+					<a href="https://www.microsoft.com/cognitive-services/en-us/Computer-Vision-API/documentation/Category-Taxonomy">category taxonomy</a></li>
+				<li>Tags - generates a list of possible tags for the image (e.g. cat, tree, etc.)</li>
+				<li>Description - generates an English sentence desribing the image</li>
+				<li>Faces - detects faces and generate their coordinates, gender and age</li>
+				<li>ImageType - detects if the image is a clipart or a line drawing (boolean)</li>
+				<li>Color - determines the accent color, dominant color, and whether the image is black&white</li>
+				<li>Adult - determines if the image is sexually suggestive or pornographic</li>
+			</ul>
+		<p class="content"> 
+			Multiple types of the visualFeatures parameter can be passed. For example, one can request a list of tags 
+			and determine color properties by calling 
+			<code>https://westus.api.cognitive.microsoft.com/vision/v1.0/analyze?visualFeatures=Tags,Color[&details][&language]</code>. 
+		</p>
+		<p class="content"> 
+			The <b>details</b> and <b>language</b> parameters are not as important. The details parameter requests for a domain specific 
+			response (e.g. Celebrities keyword identifies celebrities in an image), but this is not widely supported since the Computer Vision API is 
+			still in development. Currently Celebrities is the only supported parameter type. The language parameter can be passed either English or Chinese 
+			(en or zh), which defines the language of the returned result. The default language is English. 
+		</p>
+		<p class="content"> 
+			Due to the current limited capabilities of the details and language parameters, they will not be covered in the examples in this guide.
+		</p>
+		<p class="content"> 
+			In addition to the optional paramters mentioned above, the API key must also be sent as part of the request. It can be sent as a query with the URL 
+			by appending &subscription-key=&lt;API key&gt;, or it can be sent as a request header (ocp-apim-subscription-key: &lt;API key&gt;). For simplicity we will choose 
+			to pass the key as a query parameter.
+		</p>
+		
+		<p class="content"> 
+			In summary, the full request URL will look like this:
+		</p>
+		<p class="content">
+			<code>https://westus.api.cognitive.microsoft.com/vision/v1.0/analyze[?visualFeatures]&subscription-key=&lt;API key&gt;</code>
+		</p>
+		<p class="content">
+			We can directly send the POST using something like the 
+			<a href="https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo?hl=en-US">Advanced REST client</a>, 
+			but let's see how we would send the request using Javascript.
+		</p>
+		
+		
+		
+		<div class="title">
+			<h3>Example code</h3>
+		</div>
+		<p class="content">
+			Here's an example of how to call the API using form submission in HTML. 
+			(insert JSFiddle)
+		</p>
+		<iframe width="100%" height="300" src="//jsfiddle.net/0w2jcqfn/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+		
+		<div class="title">
+			<h3>Response</h3>
+		</div>
+		
+		<div class ="title" style="padding-top:3em">
+			<a class="next-prev" href="setup.html"><span class="icon icon-arrow-left" style="display:inline;"></span></a>
+			<a class="next-prev" href="example.html"><span class="icon icon-arrow-right" style="display:inline;"></span></a>
+		</div>
+	</div>
+</div>
+<div id="copyright">
+	<p>&copy; Taewoo Kim. All rights reserved. | CSS based on <a href="http://templated.co" rel="nofollow">TEMPLATED</a>.</p>
+</div>
+</body>
+</html>
